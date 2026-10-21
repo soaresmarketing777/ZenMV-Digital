@@ -1,0 +1,287 @@
+/* =========================================
+   VARIÁVEIS E RESET
+   ========================================= */
+:root {
+    --primary: #0F172A;
+    --accent: #06B6D4;
+    --accent-hover: #0891B2;
+    --bg-light: #F8FAFC;
+    --bg-alt: #F1F5F9;
+    --text-light: #334155;
+    --text-heading: #0F172A;
+    --white: #FFFFFF;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --radius: 8px;
+    --transition: all 0.3s ease;
+}
+
+[data-theme="dark"] {
+    --primary: #F8FAFC;
+    --bg-light: #020617;
+    --bg-alt: #0F172A;
+    --text-light: #CBD5E1;
+    --text-heading: #F1F5F9;
+    --white: #1E293B;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-light);
+    line-height: 1.6;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', sans-serif;
+    color: var(--text-heading);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+p {
+    max-width: 65ch; /* Micro-tipografia para leitura confortável */
+    margin-bottom: 1rem;
+}
+
+a { text-decoration: none; color: inherit; transition: var(--transition); }
+img { max-width: 100%; height: auto; display: block; border-radius: var(--radius); }
+
+.container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+.narrow-container { max-width: 800px; }
+.highlight { color: var(--accent); }
+.text-center { text-align: center; margin-left: auto; margin-right: auto; }
+
+/* =========================================
+   COMPONENTES
+   ========================================= */
+.btn {
+    display: inline-block;
+    padding: 0.875rem 1.75rem;
+    border-radius: var(--radius);
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    transition: var(--transition);
+}
+.btn-primary { background-color: var(--accent); color: #FFFFFF; }
+.btn-primary:hover { background-color: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(6, 182, 212, 0.3); }
+.btn-secondary { background-color: transparent; border: 2px solid var(--accent); color: var(--accent); }
+.btn-secondary:hover { background-color: var(--accent); color: #FFFFFF; }
+.btn-block { width: 100%; }
+.btn-sm { padding: 0.5rem 1rem; font-size: 0.875rem; }
+
+.section { padding: 5rem 0; }
+.bg-alt { background-color: var(--bg-alt); }
+
+/* =========================================
+   HEADER & NAV
+   ========================================= */
+#main-header {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+    padding: 1rem 0; transition: var(--transition); background-color: transparent;
+}
+#main-header.scrolled {
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    box-shadow: var(--shadow); padding: 0.75rem 0;
+}
+[data-theme="dark"] #main-header.scrolled { background-color: rgba(15, 23, 42, 0.85); }
+
+.header-content { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--text-heading); }
+.logo span { color: var(--accent); }
+
+.desktop-nav { display: none; }
+.desktop-nav a { margin-left: 1.5rem; font-weight: 500; color: var(--text-heading); }
+.desktop-nav a:hover { color: var(--accent); }
+.btn-nav { background-color: var(--accent); color: #FFFFFF !important; padding: 0.5rem 1rem; border-radius: var(--radius); }
+
+#theme-toggle, #mobile-menu-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-heading); margin-left: 1rem; }
+#mobile-menu-btn { display: block; }
+
+.mobile-nav {
+    display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%;
+    background-color: var(--white); box-shadow: var(--shadow); padding: 1rem;
+}
+.mobile-nav.active { display: flex; }
+.mobile-nav a { padding: 0.75rem 0; border-bottom: 1px solid var(--bg-alt); color: var(--text-heading); font-weight: 500; }
+
+/* =========================================
+   HERO SECTION
+   ========================================= */
+.hero {
+    height: 90vh; min-height: 600px; display: flex; align-items: center;
+    background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-alt) 100%);
+    padding-top: 80px;
+}
+.hero-content h1 { font-size: 2.5rem; margin-bottom: 1.5rem; }
+.hero-buttons { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+
+.animate-fade-up { opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s forwards; }
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+/* =========================================
+   AUTHORITY, GRIDS & CARDS
+   ========================================= */
+.authority-bar { background-color: var(--primary); color: #FFFFFF; padding: 1.5rem 0; }
+[data-theme="dark"] .authority-bar { background-color: var(--accent); }
+.authority-grid { display: flex; flex-direction: column; gap: 1rem; text-align: center; }
+.authority-item { display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-weight: 600; }
+.authority-item .icon { font-size: 1.25rem; }
+
+.grid-2 { display: grid; gap: 3rem; align-items: center; }
+.grid-3 { display: grid; gap: 2rem; }
+.services-grid { display: grid; gap: 1.5rem; margin-top: 3rem; }
+
+.service-card {
+    background-color: var(--white); padding: 2rem; border-radius: var(--radius);
+    box-shadow: var(--shadow); transition: var(--transition); border: 1px solid transparent;
+}
+.service-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+.service-card.featured { border: 2px solid var(--accent); position: relative; }
+.service-card.featured::before {
+    content: "Mais Popular"; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background-color: var(--accent); color: #FFFFFF; padding: 0.25rem 0.75rem;
+    border-radius: 20px; font-size: 0.75rem; font-weight: 700;
+}
+.service-card .price { font-size: 1.5rem; font-weight: 700; color: var(--accent); margin: 0.5rem 0 1rem; }
+
+/* =========================================
+   GALERIA, DEPOIMENTOS, FAQ
+   ========================================= */
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 3rem; }
+.gallery-grid img { width: 100%; height: 250px; object-fit: cover; transition: var(--transition); }
+.gallery-grid img:hover { transform: scale(1.02); }
+
+.testimonials-grid { display: grid; gap: 1.5rem; margin-top: 3rem; }
+.testimonial-card { background-color: var(--white); padding: 2rem; border-radius: var(--radius); box-shadow: var(--shadow); font-style: italic; }
+.testimonial-card strong { display: block; margin-top: 1rem; font-style: normal; color: var(--accent); }
+
+.accordion { margin-top: 3rem; }
+.accordion-item { border-bottom: 1px solid var(--bg-alt); }
+.accordion-header {
+    width: 100%; text-align: left; padding: 1.5rem 0; background: none; border: none;
+    font-size: 1.1rem; font-weight: 600; color: var(--text-heading); cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+}
+.accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+.accordion-content p { padding-bottom: 1.5rem; color: var(--text-light); }
+.accordion-item.active .accordion-header .icon { transform: rotate(45deg); }
+
+/* =========================================
+   FORMULÁRIO
+   ========================================= */
+.contact-form { background-color: var(--white); padding: 2rem; border-radius: var(--radius); box-shadow: var(--shadow); margin-top: 2rem; }
+.form-group { margin-bottom: 1.5rem; }
+.form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text-heading); }
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 0.75rem; border: 1px solid #CBD5E1; border-radius: var(--radius);
+    background-color: var(--bg-light); color: var(--text-heading); font-family: inherit; transition: var(--transition);
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1);
+}
+
+/* =========================================
+   FOOTER
+   ========================================= */
+footer { background-color: var(--primary); color: #94A3B8; padding: 4rem 0 2rem; }
+.footer-content { display: flex; flex-direction: column; gap: 2rem; margin-bottom: 2rem; }
+.footer-info h3 { color: #FFFFFF; margin-bottom: 1rem; }
+.footer-social a { display: inline-block; margin-right: 1rem; color: var(--accent); font-weight: 600; }
+.footer-social a:hover { color: #FFFFFF; }
+.footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.875rem; }
+
+/* =========================================
+   ELEMENTOS FLUTUANTES (WhatsApp, Sticky, Cookies)
+   ========================================= */
+/* Botão Flutuante WhatsApp */
+.floating-whatsapp {
+    position: fixed;
+    bottom: 90px; /* Acima da barra mobile no celular, perfeito no desktop */
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #25D366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+    z-index: 998;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: pulse-wa 2s infinite;
+}
+.floating-whatsapp:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(37, 211, 102, 0.6);
+}
+@keyframes pulse-wa {
+    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+/* Barra Fixa Mobile */
+.sticky-mobile-bar {
+    position: fixed; bottom: 0; left: 0; width: 100%;
+    background-color: var(--white); box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);
+    display: flex; z-index: 999; padding: 0.5rem; gap: 0.5rem;
+}
+.sticky-btn {
+    flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    padding: 0.875rem; border-radius: var(--radius); font-weight: 700; font-size: 1rem;
+}
+.sticky-btn.whatsapp { background-color: #25D366; color: #FFFFFF; }
+.sticky-btn.call { background-color: var(--primary); color: #FFFFFF; }
+
+/* Cookie Banner */
+.cookie-banner {
+    position: fixed; bottom: 80px; left: 1rem; right: 1rem;
+    background-color: var(--primary); color: #FFFFFF; padding: 1rem;
+    border-radius: var(--radius); box-shadow: var(--shadow); z-index: 997;
+    display: none; align-items: center; justify-content: space-between; gap: 1rem;
+}
+.cookie-banner.show { display: flex; }
+.cookie-banner p { margin: 0; font-size: 0.875rem; max-width: none; }
+.cookie-banner a { color: var(--accent); text-decoration: underline; }
+
+/* Modal */
+.modal {
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.6); z-index: 2000; align-items: center; justify-content: center; padding: 1rem;
+}
+.modal.active { display: flex; }
+.modal-content {
+    background-color: var(--white); padding: 2rem; border-radius: var(--radius);
+    max-width: 500px; width: 100%; text-align: center; position: relative;
+}
+.close-modal { position: absolute; top: 1rem; right: 1rem; font-size: 1.5rem; cursor: pointer; color: var(--text-light); }
+
+/* =========================================
+   MEDIA QUERIES (DESKTOP)
+   ========================================= */
+@media (min-width: 768px) {
+    .desktop-nav { display: flex; align-items: center; }
+    #mobile-menu-btn { display: none; }
+    .hero-content h1 { font-size: 3.5rem; }
+    .authority-grid { flex-direction: row; justify-content: space-around; }
+    .grid-2 { grid-template-columns: 1fr 1fr; }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .services-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .testimonials-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+    .footer-content { flex-direction: row; justify-content: space-between; align-items: center; }
+    
+    .sticky-mobile-bar { display: none !important; } /* Oculta barra mobile no desktop */
+    .floating-whatsapp { bottom: 30px; right: 30px; } /* Ajuste fino para desktop */
+    
+    .cookie-banner { bottom: 2rem; left: 50%; transform: translateX(-50%); width: 90%; max-width: 800px; }
+}
